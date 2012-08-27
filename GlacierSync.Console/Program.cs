@@ -7,9 +7,9 @@ using Amazon.Glacier.Model;
 using Amazon.Runtime;
 using Ionic.Zip;
 
-namespace AWS.Glacier.UploadConsole
+namespace GlacierSync.Console
 {
-    class MainClass
+    class Program
     {
         private static string DirectoryToArchive;
         private static string BackupFilePath;
@@ -26,27 +26,27 @@ namespace AWS.Glacier.UploadConsole
             {
                 if (e.EventType == ZipProgressEventType.Saving_AfterWriteEntry)
                 {
-                    Console.SetCursorPosition(0, 0);
+                    System.Console.SetCursorPosition(0, 0);
                     progressUpdateLen = progressUpdate.Length;
                     progressUpdate = string.Format("\rSaving {0} of {1} [{2}]",
                                                    e.EntriesSaved, e.EntriesTotal,
                                                    GetProgressBar(e.EntriesSaved, e.EntriesTotal, 40)).PadRight(progressUpdateLen);
-                    Console.Write(progressUpdate);
+                    System.Console.Write(progressUpdate);
                 }
             }
             if (e.EventType == ZipProgressEventType.Saving_Completed)
             {
-                Console.WriteLine();
+                System.Console.WriteLine();
             }
         }
 
         private static void WriteFileUploadProgress(long current, long total)
         {
-            Console.SetCursorPosition(0, 2);
+            System.Console.SetCursorPosition(0, 2);
             progressUpdateLen = progressUpdate.Length;
             progressUpdate = string.Format("\rUploaded: {0} of {1} [{2}]",
                                            current, total, GetProgressBar(current, total, 40)).PadRight(progressUpdateLen);
-            Console.Write(progressUpdate);
+            System.Console.Write(progressUpdate);
         }
 
         private static string GetProgressBar(long current, long total, int len, char symbol = '=')
@@ -102,30 +102,30 @@ namespace AWS.Glacier.UploadConsole
             {
                 using (client = new AmazonGlacierClient(Amazon.RegionEndpoint.USEast1))
                 {
-                    Console.WriteLine("Uploading an archive.");
+                    System.Console.WriteLine("Uploading an archive.");
                     string uploadId = InitiateMultipartUpload(client);
                     partChecksumList = UploadParts(uploadId, client);
                     string archiveId = CompleteMPU(uploadId, client, partChecksumList);
-                    Console.WriteLine();
-                    Console.WriteLine("Archive ID: {0}", archiveId);
+                    System.Console.WriteLine();
+                    System.Console.WriteLine("Archive ID: {0}", archiveId);
                 }
 
                 File.Delete(BackupFilePath);
 
-                Console.WriteLine("Operations successful. To continue, press Enter");
-                Console.ReadKey();
+                System.Console.WriteLine("Operations successful. To continue, press Enter");
+                System.Console.ReadKey();
             }
             catch (AmazonGlacierException e)
             {
-                Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.Message);
             }
             catch (AmazonServiceException e)
             {
-                Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.Message);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.Message);
             }
         }
 
