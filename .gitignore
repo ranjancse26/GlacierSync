@@ -33,7 +33,7 @@
 *.dotCover
 
 # Ignore localsettings.config so we have safe place to store our Amazon credentials
-localsettings.config
+localSettings.config
 
 packages/
 
