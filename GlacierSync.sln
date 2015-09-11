@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{225FC5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlacierSync.Common", "GlacierSync.Common\GlacierSync.Common.csproj", "{F4AAE1C9-0B1B-4572-9578-C07DAB305114}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlacierSync.Service", "GlacierSync.Service\GlacierSync.Service.csproj", "{E84E1773-D8EC-45CC-9554-C8F505D2D3BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,6 +23,10 @@ Global
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Debug|x86.Build.0 = Debug|x86
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Release|x86.ActiveCfg = Release|x86
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Release|x86.Build.0 = Release|x86
+		{E84E1773-D8EC-45CC-9554-C8F505D2D3BF}.Debug|x86.ActiveCfg = Debug|x86
+		{E84E1773-D8EC-45CC-9554-C8F505D2D3BF}.Debug|x86.Build.0 = Debug|x86
+		{E84E1773-D8EC-45CC-9554-C8F505D2D3BF}.Release|x86.ActiveCfg = Release|x86
+		{E84E1773-D8EC-45CC-9554-C8F505D2D3BF}.Release|x86.Build.0 = Release|x86
 		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Debug|x86.Build.0 = Debug|Any CPU
 		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Release|x86.ActiveCfg = Release|Any CPU
