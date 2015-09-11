@@ -18,11 +18,12 @@ namespace GlacierSync.Console
 		protected readonly string ArchiveDescription;
 		protected readonly IFeedback FeedbackProvider;
 
-		public BackupToGlacier (string directoryToArchive, string backupFilePath, string vaultName, IFeedback feedbackProvider)
+		public BackupToGlacier (string directoryToArchive, string backupFilePath, string vaultName, string archiveDescription, IFeedback feedbackProvider)
 		{
 			DirectoryToArchive = directoryToArchive;
 			BackupFilePath = backupFilePath;
 			VaultName = vaultName;
+			ArchiveDescription = archiveDescription;
 
 			FeedbackProvider = feedbackProvider;
 		}
