@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using Amazon.Glacier;
 using Amazon.Glacier.Model;
 using Amazon.Runtime;
@@ -36,8 +37,25 @@ namespace GlacierSync.Console
 			var partChecksumList = new List<string>();
 			try
 			{
-				using (var client = new AmazonGlacierClient(Amazon.RegionEndpoint.USEast1))
+				var config = new AmazonGlacierConfig{
+					RegionEndpoint = Amazon.RegionEndpoint.USEast1
+				};
+
+				var credentials = new EnvironmentVariablesAWSCredentials();
+
+				using (var client = new AmazonGlacierClient(credentials, config))
 				{
+					var vaults = client.ListVaults();
+					if(!vaults.VaultList.Any(v => v.VaultName == VaultName))
+					{
+						var createVaultRequest = new CreateVaultRequest(VaultName);
+						var createVaultResponse = client.CreateVault(createVaultRequest);
+						if(createVaultResponse.HttpStatusCode != System.Net.HttpStatusCode.Created)
+						{
+							throw new ApplicationException("Error creating new vault.");
+						}
+					}
+
 					FeedbackProvider.WriteFeedback("Uploading an archive.");
 					string uploadId = InitiateMultipartUpload(client);
 					partChecksumList = UploadParts(uploadId, client);
@@ -70,7 +88,7 @@ namespace GlacierSync.Console
 			FeedbackProvider.WriteFeedbackWithPercent (message, (int)current, (int)total);
 		}
 
-		protected string InitiateMultipartUpload(AmazonGlacier client)
+		protected string InitiateMultipartUpload(AmazonGlacierClient client)
 		{
 			var initiateMPUrequest = new InitiateMultipartUploadRequest()
 			{
@@ -81,10 +99,10 @@ namespace GlacierSync.Console
 
 			var initiateMPUresponse = client.InitiateMultipartUpload(initiateMPUrequest);
 
-			return initiateMPUresponse.InitiateMultipartUploadResult.UploadId;
+			return initiateMPUresponse.UploadId;
 		}
 
-		protected List<string> UploadParts(string uploadID, AmazonGlacier client)
+		protected List<string> UploadParts(string uploadID, AmazonGlacierClient client)
 		{
 			var partChecksumList = new List<string>();
 			long currentPosition = 0;
@@ -116,7 +134,7 @@ namespace GlacierSync.Console
 			return partChecksumList;
 		}
 
-		protected string CompleteMPU(string uploadID, AmazonGlacier client, List<string> partChecksumList)
+		protected string CompleteMPU(string uploadID, AmazonGlacierClient client, List<string> partChecksumList)
 		{
 			long fileLength = new FileInfo(BackupFilePath).Length;
 			var completeMPUrequest = new CompleteMultipartUploadRequest()
@@ -128,7 +146,7 @@ namespace GlacierSync.Console
 			};
 
 			var completeMPUresponse = client.CompleteMultipartUpload(completeMPUrequest);
-			return completeMPUresponse.CompleteMultipartUploadResult.ArchiveId;
+			return completeMPUresponse.ArchiveId;
 		}
 	}
 }

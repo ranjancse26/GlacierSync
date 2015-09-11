@@ -13,6 +13,19 @@ namespace GlacierSync.Console
     {
 		public static void Main(string[] args)
 		{
+			// Required Environment Variables
+			var awsAccessKey = Environment.GetEnvironmentVariable ("AWS_ACCESS_KEY_ID");
+			if (string.IsNullOrEmpty (awsAccessKey))
+			{
+				throw new ConfigurationErrorsException ("Missing environment variable: AWS_ACCESS_KEY_ID");
+			}
+
+			var awsSecretKey = Environment.GetEnvironmentVariable ("AWS_SECRET_ACCESS_KEY");
+			if (string.IsNullOrEmpty(awsSecretKey))
+			{
+				throw new ConfigurationErrorsException ("Missing environment variable: AWS_SECRET_ACCESS_KEY");
+			}
+
 			// Required Config Values
 			var directoryToArchive = ConfigurationManager.AppSettings["DirectoryToArchive"];
 			if(string.IsNullOrEmpty(directoryToArchive))
@@ -34,7 +47,7 @@ namespace GlacierSync.Console
 				? string.Format("Archive of {0}", directoryToArchive)
 					: archiveDescription;
 
-			var backup = new BackupToGlacier (directoryToArchive, backupFilePath, vaultName, new ConsoleFeedback ());
+			var backup = new BackupToGlacier (directoryToArchive, backupFilePath, vaultName, archiveDescription, new ConsoleFeedback ());
 			backup.Execute ();
 		}
     }
