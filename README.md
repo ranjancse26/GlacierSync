@@ -6,12 +6,8 @@ This is simple .net command line program that will archive (zip) a directory the
 
 To get it up and running, edit the App.config file to point it to a directory you want archived and specify your vault name.
 
-You'll also need to create a file called 'localsettings.config' which will contain your AWSAccessKey and AWSSecretKey.
+You'll also need to set two environment variables:
 
-    <?xml version="1.0"?>
-    <appSettings file="localsettings.config">
-      <add key="AWSAccessKey" value="your access key"/>
-      <add key="AWSSecretKey" value="your secret key"/>
-    </appSettings>
+AWS_ACCESS_KEY_ID – AWS access key.
 
-The localsettings.config is excluded by the gitignore file so you don't need to worry about accidentally checking in your private credentials.
+AWS_SECRET_ACCESS_KEY – AWS secret key. Access and secret key variables override credentials stored in credential and config files.
