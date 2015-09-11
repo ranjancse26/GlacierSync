@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using Amazon.Glacier;
-using Amazon.Glacier.Model;
-using Amazon.Runtime;
-using Ionic.Zip;
+
+using GlacierSync.Common.Jobs;
+using GlacierSync.Common.Utilities;
 
 namespace GlacierSync.Console
 {
@@ -27,6 +26,7 @@ namespace GlacierSync.Console
 			}
 
 			// Required Config Values
+			//TODO: Move these into command line parameters instead of config values
 			var directoryToArchive = ConfigurationManager.AppSettings["DirectoryToArchive"];
 			if(string.IsNullOrEmpty(directoryToArchive))
 				throw new ConfigurationErrorsException("Please specify the 'DirectoryToArchive' setting in the application configuration file.");

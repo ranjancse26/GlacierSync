@@ -1,6 +1,6 @@
 using System;
 
-namespace GlacierSync.Console
+namespace GlacierSync.Common.Utilities
 {
 	public interface IFeedback
 	{

@@ -8,7 +8,9 @@ using Amazon.Glacier.Model;
 using Amazon.Runtime;
 using Ionic.Zip;
 
-namespace GlacierSync.Console
+using GlacierSync.Common.Utilities;
+
+namespace GlacierSync.Common.Jobs
 {
 	public class BackupToGlacier
 	{

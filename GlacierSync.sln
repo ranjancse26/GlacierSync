@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{225FC5
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlacierSync.Common", "GlacierSync.Common\GlacierSync.Common.csproj", "{F4AAE1C9-0B1B-4572-9578-C07DAB305114}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +21,15 @@ Global
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Debug|x86.Build.0 = Debug|x86
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Release|x86.ActiveCfg = Release|x86
 		{C27CC69B-8E37-49BF-A825-EC9403490258}.Release|x86.Build.0 = Release|x86
+		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Debug|x86.Build.0 = Debug|Any CPU
+		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Release|x86.ActiveCfg = Release|Any CPU
+		{F4AAE1C9-0B1B-4572-9578-C07DAB305114}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = GlacierSync.Console\GlacierSync.Console.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

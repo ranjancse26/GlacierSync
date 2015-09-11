@@ -7,7 +7,7 @@ using Amazon.Glacier.Model;
 using Amazon.Runtime;
 using Ionic.Zip;
 
-namespace GlacierSync.Console
+namespace GlacierSync.Common.Utilities
 {
 	public class DirectoryZipper
 	{
