@@ -1,5 +1,10 @@
 using System;
+
 using Quartz;
+
+using GlacierSync.Common;
+using GlacierSync.Common.Utilities;
+using GlacierSync.Common.Jobs;
 
 namespace GlacierSync.Service
 {
@@ -9,9 +14,10 @@ namespace GlacierSync.Service
 
 		public void Execute (IJobExecutionContext context)
 		{
-			//TODO: get necessary params from context
+			var backupConfig = (BackupConfiguration)context.JobDetail.JobDataMap["backupConfig"];
 
-			//TODO: Create new backup, execute
+			var backup = new BackupToGlacier (backupConfig, new NullFeedback ());
+			backup.Execute ();
 		}
 
 		#endregion

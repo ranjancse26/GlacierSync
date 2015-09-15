@@ -60,6 +60,7 @@
     <Compile Include="BackupConfiguration.cs" />
     <Compile Include="Utilities\ConfigurationValidator.cs" />
     <Compile Include="Utilities\ConfigEntryNameAttribute.cs" />
+    <Compile Include="Utilities\NullFeedback.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

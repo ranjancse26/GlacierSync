@@ -2,50 +2,52 @@ using System;
 using System.Configuration;
 using System.IO;
 
+using Quartz;
+using Quartz.Impl;
+
 namespace GlacierSync.Service
 {
 	public class BackupService
 	{
+		private IScheduler scheduler;
+
 		public BackupService ()
 		{
-			// Required Environment Variables
-			var awsAccessKey = Environment.GetEnvironmentVariable ("AWS_ACCESS_KEY_ID");
-			if (string.IsNullOrEmpty (awsAccessKey))
-			{
-				throw new ConfigurationErrorsException ("Missing environment variable: AWS_ACCESS_KEY_ID");
-			}
+			var backupConfig = GlacierSync.Common.Utilities.ConfigurationValidator.ValidateConfiguration (new string[0]);
 
-			var awsSecretKey = Environment.GetEnvironmentVariable ("AWS_SECRET_ACCESS_KEY");
-			if (string.IsNullOrEmpty(awsSecretKey))
-			{
-				throw new ConfigurationErrorsException ("Missing environment variable: AWS_SECRET_ACCESS_KEY");
-			}
+			ISchedulerFactory schedulerFactory = new StdSchedulerFactory ();
+			scheduler = schedulerFactory.GetScheduler ();
 
-			// Required Config Values
-			//TODO: Move these into command line parameters instead of config values
-			var directoryToArchive = ConfigurationManager.AppSettings["DirectoryToArchive"];
-			if(string.IsNullOrEmpty(directoryToArchive))
-				throw new ConfigurationErrorsException("Please specify the 'DirectoryToArchive' setting in the application configuration file.");
+			var crontab = "0 0/1 * * * ?";
 
-			var vaultName = ConfigurationManager.AppSettings["VaultName"];
-			if (string.IsNullOrEmpty(vaultName))
-				throw new ConfigurationErrorsException("Please specify the 'VaultName' setting in the application configuration file.");
+			var trigger = TriggerBuilder.Create ()
+					.WithIdentity ("cron based trigger", "triggers")
+					.StartNow ()
+					.WithCronSchedule (crontab)
+					.WithDescription ("cron based trigger")
+					.Build ();
 
-			var backupFilePath = ConfigurationManager.AppSettings["BackupFilePath"];
-			if (string.IsNullOrEmpty(backupFilePath))
-			{
-				backupFilePath = Path.Combine(Path.GetTempPath(),
-				                              Path.GetTempFileName()).Replace(".tmp", ".zip");
-			}
+			var data = new JobDataMap ();
+			data.Put ("backupConfig", backupConfig);
 
-			var archiveDescription = ConfigurationManager.AppSettings["ArchiveDescription"];
-			archiveDescription = (string.IsNullOrEmpty(archiveDescription))
-				? string.Format("Archive of {0}", directoryToArchive)
-					: archiveDescription;
+			var job = JobBuilder.Create<BackupJobWrapper> ()
+					.WithIdentity ("GlacierSync Backup")
+					.UsingJobData (data)
+					.Build ();
+
+			scheduler.ScheduleJob (job, trigger);
 		}
 
-		public bool Start(){ return true; }
-		public bool Stop(){ return false; }
+		public bool Start()
+		{ 
+			scheduler.Start ();
+			return true; 
+		}
+		public bool Stop()
+		{
+			scheduler.Shutdown ();
+			return true;
+		}
 	}
 }
 
