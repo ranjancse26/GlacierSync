@@ -3,6 +3,8 @@ using System;
 using CommandLine;
 using CommandLine.Text;
 
+using GlacierSync.Common.Utilities;
+
 namespace GlacierSync.Common
 {
 	public class BackupConfiguration

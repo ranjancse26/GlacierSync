@@ -12,8 +12,8 @@ namespace GlacierSync.Console
     {
 		public static void Main(string[] args)
 		{
-
-			var backup = new BackupToGlacier (GlacierSync.Common.Utilities.ConfigurationValidator.ValidateConfiguration(args), new ConsoleFeedback ());
+			var backupConfig = ConfigurationValidator.ValidateConfiguration (args);
+			var backup = new BackupToGlacier (backupConfig, new ConsoleFeedback ());
 			backup.Execute ();
 		}
     }

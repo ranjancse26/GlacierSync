@@ -30,20 +30,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
     <Reference Include="AWSSDK.Core">
-      <HintPath>..\packages\AWSSDK.Core.3.1.1.0\lib\net45\AWSSDK.Core.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.Core.3.1.1.0\lib\net35\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.SQS">
+      <HintPath>..\packages\AWSSDK.SQS.3.1.0.1\lib\net35\AWSSDK.SQS.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.SimpleNotificationService">
+      <HintPath>..\packages\AWSSDK.SimpleNotificationService.3.1.0.1\lib\net35\AWSSDK.SimpleNotificationService.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.Glacier">
-      <HintPath>..\packages\AWSSDK.Glacier.3.1.0.2\lib\net45\AWSSDK.Glacier.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.Glacier.3.1.0.2\lib\net35\AWSSDK.Glacier.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net40\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+      <HintPath>..\packages\DotNetZip.1.9.6\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="CommandLine">
-      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +59,10 @@
     <Compile Include="Utilities\IFeedback.cs" />
     <Compile Include="BackupConfiguration.cs" />
     <Compile Include="Utilities\ConfigurationValidator.cs" />
+    <Compile Include="Utilities\ConfigEntryNameAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

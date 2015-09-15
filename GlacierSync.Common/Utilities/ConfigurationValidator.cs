@@ -3,23 +3,10 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 
-namespace GlacierSync.Common
+using GlacierSync.Common.Utilities;
+
+namespace GlacierSync.Common.Utilities
 {
-	[AttributeUsage(AttributeTargets.Property)]
-	public class ConfigEntryNameAttribute : Attribute
-	{
-		public string Name { get; set; }
-		public string ValueMissingErrorMessage { get; set; }
-		public bool Required { get; set; }
-
-		public ConfigEntryNameAttribute(string name, bool required, string valueMissingMessage = null)
-		{
-			Name = name;
-			Required = required;
-			ValueMissingErrorMessage = valueMissingMessage;
-		}
-	}
-
 	public static class ConfigurationValidator
 	{
 		/// <summary>
