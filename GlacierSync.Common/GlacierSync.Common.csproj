@@ -39,6 +39,11 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -46,6 +51,8 @@
     <Compile Include="Utilities\ConsoleFeedback.cs" />
     <Compile Include="Utilities\DirectoryZipper.cs" />
     <Compile Include="Utilities\IFeedback.cs" />
+    <Compile Include="BackupConfiguration.cs" />
+    <Compile Include="Utilities\ConfigurationValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

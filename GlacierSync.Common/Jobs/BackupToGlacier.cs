@@ -21,12 +21,12 @@ namespace GlacierSync.Common.Jobs
 		protected readonly string ArchiveDescription;
 		protected readonly IFeedback FeedbackProvider;
 
-		public BackupToGlacier (string directoryToArchive, string backupFilePath, string vaultName, string archiveDescription, IFeedback feedbackProvider)
+		public BackupToGlacier (BackupConfiguration configuration, IFeedback feedbackProvider)
 		{
-			DirectoryToArchive = directoryToArchive;
-			BackupFilePath = backupFilePath;
-			VaultName = vaultName;
-			ArchiveDescription = archiveDescription;
+			DirectoryToArchive = configuration.DirectoryToArchive;
+			BackupFilePath = configuration.BackupFilePath;
+			VaultName = configuration.VaultName;
+			ArchiveDescription = configuration.ArchiveDescription;
 
 			FeedbackProvider = feedbackProvider;
 		}

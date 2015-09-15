@@ -16,10 +16,10 @@ namespace GlacierSync.Service
 							 });
 			                 configurator.RunAsPrompt();
 			                 configurator.SetDescription("Runs a backup/zip/glacier push on a schedule");
-			                 configurator.SetServiceName("");
-			                 configurator.SetDisplayName("");
+			                 configurator.SetServiceName("GlacierSync.Backup.Service");
+			                 configurator.SetDisplayName("GlacierSync Backup Service");
 			                 configurator.StartAutomatically();
-			                 });
+			             });
 		}
 	}
 }
